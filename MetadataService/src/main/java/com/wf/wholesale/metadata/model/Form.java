@@ -37,7 +37,7 @@ public class Form implements Serializable{
 	private String description;
 	
 	@Column(name="form_config")
-	private String sectionConfig;
+	private String formConfig;
 	
 	@Column(name="is_active")
 	private String activeFlag;
@@ -117,14 +117,14 @@ public class Form implements Serializable{
 		this.description = description;
 	}
 
-	public String getSectionConfig() {
-		return sectionConfig;
+	
+	public String getFormConfig() {
+		return formConfig;
 	}
 
-	public void setSectionConfig(String sectionConfig) {
-		this.sectionConfig = sectionConfig;
+	public void setFormConfig(String formConfig) {
+		this.formConfig = formConfig;
 	}
-	
 
 	public String getActiveFlag() {
 		return activeFlag;

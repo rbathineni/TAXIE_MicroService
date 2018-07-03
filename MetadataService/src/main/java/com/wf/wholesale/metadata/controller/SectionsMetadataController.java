@@ -130,7 +130,8 @@ public class SectionsMetadataController {
 		updateSection.setSectionConfig(reqSection.getSectionConfig());
 		updateSection.setModifiedBy(reqSection.getModifiedBy());
 		updateSection.setModifiedOn(Date.valueOf(LocalDate.now()));
-
+		updateSection.setSectionConfig(reqSection.getSectionConfig());
+		 
 		Section savedSection = sectionRepository.save(updateSection);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.buildAndExpand(savedSection.getId()).toUri();

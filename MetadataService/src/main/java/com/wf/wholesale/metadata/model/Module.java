@@ -61,7 +61,7 @@ public class Module implements Serializable{
 	@Column(name="is_deleted")
 	private String deleteFlag;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "application_id", insertable = false, updatable = false)
 	@JsonIgnore
 	private Application application;
