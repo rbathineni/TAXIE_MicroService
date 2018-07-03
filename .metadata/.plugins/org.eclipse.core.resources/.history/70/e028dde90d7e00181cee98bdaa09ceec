@@ -1,0 +1,120 @@
+package com.wf.wholesale.metadata.model;
+
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+@Entity
+public class Application implements Serializable{
+
+	private static final long serialVersionUID = -5223735246394539469L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="application_id")
+	private Long id;
+	
+	@Column(name="application_name")
+	@NotBlank
+	private String applicationName;
+	
+	private String description;
+	
+	@Column(name="created_by")
+	private String createdBy;
+	
+	@Column(name="modified_by")
+	private String modifiedBy;
+	
+	@Column(name="created_on")
+	@CreatedDate
+	private Date createdOn;
+	
+	@Column(name="modified_on")
+	@LastModifiedDate
+	private Date modifiedOn;
+
+    @OneToMany(mappedBy = "application", 
+            cascade = CascadeType.ALL, 
+            //fetch = FetchType.LAZY,
+            orphanRemoval = true)
+    private List<Module> modules = new ArrayList<>();
+
+	public List<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(List<Module> modules) {
+		this.modules = modules;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getApplicationName() {
+		return applicationName;
+	}
+
+	public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date cretedOn) {
+		this.createdOn = cretedOn;
+	}
+
+	public Date getModifiedOn() {
+		return modifiedOn;
+	}
+
+	public void setModifiedOn(Date modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
+	
+}

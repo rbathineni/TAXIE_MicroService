@@ -1,0 +1,134 @@
+package com.wf.wholesale.metadata.model;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Field implements Serializable{
+
+	private static final long serialVersionUID = 726097654842016951L;
+
+	@Id
+	@Column(name="field_id")
+	private Long fieldId;
+	
+	@Column(name="field_name")
+	private String fieldName;
+	
+	private String description;
+	
+	@Column(name="field_config")
+	private String sectionConfig;
+	
+	@Column(name="is_active")
+	private String activeFlag;
+	
+	@Column(name="is_deleted")
+	private String deleteFlag;
+		
+	@Column(name="created_by")
+	private String createdBy;
+	
+	@Column(name="modified_by")
+	private String modifiedBy;
+	
+	@Column(name="created_on")
+	private Date cretedOn;
+	
+	@Column(name="modified_on")
+	private Date modifiedOn;
+
+	public Long getFieldId() {
+		return fieldId;
+	}
+
+	public void setFieldId(Long fieldId) {
+		this.fieldId = fieldId;
+	}
+
+	public String getFieldName() {
+		return fieldName;
+	}
+
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getSectionConfig() {
+		return sectionConfig;
+	}
+
+	public void setSectionConfig(String sectionConfig) {
+		this.sectionConfig = sectionConfig;
+	}
+
+	public boolean isVisiable() {
+		return isVisiable;
+	}
+
+	public void setVisiable(boolean isVisiable) {
+		this.isVisiable = isVisiable;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Date getCretedOn() {
+		return cretedOn;
+	}
+
+	public void setCretedOn(Date cretedOn) {
+		this.cretedOn = cretedOn;
+	}
+
+	public Date getModifiedOn() {
+		return modifiedOn;
+	}
+
+	public void setModifiedOn(Date modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
+	
+	
+}

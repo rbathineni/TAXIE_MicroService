@@ -1,0 +1,45 @@
+package com.wf.wholesale.metadata.controller;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wf.wholesale.metadata.dao.ModuleRepository;
+import com.wf.wholesale.metadata.exception.MetadataNotFoundException;
+import com.wf.wholesale.metadata.model.Application;
+import com.wf.wholesale.metadata.model.Module;
+
+@RestController
+@RequestMapping("/api/metadata")
+public class ModuleController {
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	ModuleRepository moduleRepository;
+	
+	/**
+	 * This Operation is used to retrieve all the Modules
+	 * 
+	 * @return List<Module>
+	 * @throws Exception
+	 */
+	@GetMapping("/modules")
+	public List<Module> getModules() throws Exception {
+		List<Module> modules = applicationRepository.findAll();
+		if (null != modules && !modules.isEmpty()) {
+			for (Application application : modules) {
+				logger.debug(application.getApplicationName());
+				List<Module> modules = application.getModules();
+				logger.debug("Module Size :"+modules.size());
+			}
+		} else {
+			throw new MetadataNotFoundException("Applications not found.");
+		}
+		return modules;
+	}
+
+}

@@ -1,0 +1,12 @@
+1529936810214	Rename resource 'application.properties'
+1529943702532	Copy file
+1529944178840	Rename resource 'bootstrap.properties'
+1530113654192	Rename field 'cretedOn'
+1530123443512	Rename field 'isVisiable'
+1530199067919	Rename type 'ApplicationNotFoundException'
+1530200061852	Rename type 'AngularFormBuilderController'
+1530200067234	Rename type 'AngularFormBuilderControllerTest'
+1530298576666	Rename package 'com.wf.wholesale.angular.formbuilder'
+1530298622085	Rename resource 'AngularFormBuilderApplication.java'
+1530298959807	Rename resource 'angular-form-builder-service-DEV.yml'
+1530299060972	Rename resource 'AngularFormBuilderApplicationTests.java'

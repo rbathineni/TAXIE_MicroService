@@ -1,0 +1,7 @@
+1529954301707	Rename Java project 'AngularFormBuilder'
+1530110740696	Delete resource 'MetadataService/src/main/java/com/wf/wholesale/angular/formbuilder/exception/MethodArgumentNotValidException.java'
+1530298469016	Delete resource 'MetadataService/src/main/java/com/wf/wholesale/angular/formbuilder/base'
+1530300126226	Rename resource 'MetadataService'
+1530300168649	Rename resource 'MetadataServiceOld'
+1530300221134	Rename resource 'MetadataService'
+1530300550232	Delete resource 'MetadataService/src/main/resources/application.properties'

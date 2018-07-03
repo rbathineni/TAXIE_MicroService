@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: TAXIE-cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///Users/rbathineni/git-local-cloud-config
+          searchPaths: ${ENV_NAME}
+server:
+  port: 8888

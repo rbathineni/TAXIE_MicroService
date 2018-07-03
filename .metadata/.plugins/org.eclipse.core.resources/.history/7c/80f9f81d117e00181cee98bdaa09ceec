@@ -1,0 +1,179 @@
+package com.wf.wholesale.metadata.model;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+public class Form implements Serializable{
+
+	
+	private static final long serialVersionUID = -8819726603185994936L;
+
+	@Id
+	@GeneratedValue
+	@Column(name="form_id")
+	private Long id;
+	
+	@Column(name="section_id", nullable=false)
+	private Long sectionId;
+	
+	@Column(name="form_name")
+	private String formName;
+	
+	private String description;
+	
+	@Column(name="form_config")
+	private String sectionConfig;
+	
+	@Column(name="is_active")
+	private String activeFlag;
+	
+	@Column(name="is_deleted")
+	private String deleteFlag;
+		
+	@Column(name="created_by")
+	private String createdBy;
+	
+	@Column(name="modified_by")
+	private String modifiedBy;
+	
+	@Column(name="created_on")
+	private Date cretedOn;
+	
+	@Column(name="modified_on")
+	private Date modifiedOn;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "section_id" , insertable=false, updatable=false)
+	@JsonIgnore
+    private Section section;
+ 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Section )) return false;
+        return id != null && id.equals(((Form) o).id);
+    }
+    
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
+    
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFormName() {
+		return formName;
+	}
+
+	public void setFormName(String formName) {
+		this.formName = formName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getSectionConfig() {
+		return sectionConfig;
+	}
+
+	public void setSectionConfig(String sectionConfig) {
+		this.sectionConfig = sectionConfig;
+	}
+
+
+	public boolean isVisible() {
+		return isVisible;
+	}
+
+	public void setVisible(boolean isVisible) {
+		this.isVisible = isVisible;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Date getCretedOn() {
+		return cretedOn;
+	}
+
+	public void setCretedOn(Date cretedOn) {
+		this.cretedOn = cretedOn;
+	}
+
+	public Date getModifiedOn() {
+		return modifiedOn;
+	}
+
+	public void setModifiedOn(Date modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
+
+	public Long getSectionId() {
+		return sectionId;
+	}
+
+	public void setSectionId(Long sectionId) {
+		this.sectionId = sectionId;
+	}
+
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
+
+}

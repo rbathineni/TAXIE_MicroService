@@ -1,0 +1,129 @@
+package com.wf.wholesale.metadata.controller;
+
+import java.net.URI;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.wf.wholesale.metadata.dao.ApplicationRepository;
+import com.wf.wholesale.metadata.exception.MetadataNotFoundException;
+import com.wf.wholesale.metadata.model.Application;
+
+@RestController
+@RequestMapping("/api/metadata")
+public class ApplicationsMetadataController {
+
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	//@Autowired
+	//private Configuration configuration;
+
+	@Autowired
+	private ApplicationRepository applicationRepository;
+
+	/**
+	 * This Operation is used to retrieve all the applications
+	 * 
+	 * @return List<Application>
+	 * @throws Exception
+	 */
+	@GetMapping("/applications")
+	public List<Application> getApplications() throws Exception {
+		List<Application> applicationList = applicationRepository.findAll();
+		if (null != applicationList && !applicationList.isEmpty()) {
+			for (Application application : applicationList) {
+				logger.debug(application.getApplicationName());
+			}
+		} else {
+			throw new MetadataNotFoundException("Applications not found.");
+		}
+		return applicationList;
+	}
+
+	/**
+	 * This Operation is used to ADD new application
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/applications")
+	public ResponseEntity<Object> saveApplications(@RequestBody Application application) throws Exception {
+		Application savedApplication = applicationRepository.save(application);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{applicationId}")
+				.buildAndExpand(savedApplication.getId()).toUri();
+
+		return ResponseEntity.created(location).build();
+	}
+
+	/**
+	 * This Operation is used to retrieve the application for a given ApplicationId
+	 * 
+	 * @param applicationId
+	 * @return Application
+	 */
+	@GetMapping("/applications/{applicationId}")
+	public Application getMetadataByApplicationId(@PathVariable Long applicationId) {
+		Optional<Application> application = applicationRepository.findById(applicationId);
+		if (!application.isPresent()) {
+			throw new MetadataNotFoundException("Application not found for given Application Id " + applicationId);
+		}
+		logger.debug(application.get().getApplicationName());
+		return application.get();
+	}
+
+	/**
+	 * This Operation is used to Delete the application for a given ApplicationId
+	 * 
+	 * @param applicationId
+	 * @return Application
+	 */
+	@DeleteMapping("/applications/{applicationId}")
+	public void deleteApplicationById(@PathVariable Long applicationId) {
+		applicationRepository.deleteById(applicationId);
+	}
+	
+	/**
+	 * This operation is to update the Application for a given application Id
+	 * 
+	 * @param applicationId
+	 * @param Application
+	 * @return
+	 */
+
+	@PutMapping("/applications/{applicationId}")
+	public ResponseEntity<Object> updateApplication(@PathVariable Long applicationId,
+			@RequestBody Application updatedApplication) {
+
+		Optional<Application> application = applicationRepository.findById(applicationId);
+		application.orElseThrow(() -> new MetadataNotFoundException("Application not found for given Application Id "+applicationId));
+
+
+		Application updateApplication = application.get();
+		updateApplication.setApplicationName(updatedApplication.getApplicationName());
+		updateApplication.setDescription(updatedApplication.getDescription());
+		updateApplication.setModifiedBy(updatedApplication.getModifiedBy());
+		updateApplication.setModifiedOn(Date.valueOf(LocalDate.now()));
+
+		Application savedApplication = applicationRepository.save(updateApplication);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+				.buildAndExpand(savedApplication.getId()).toUri();
+
+		logger.debug("location :" + location);
+		return ResponseEntity.created(location).build();
+	}
+}
